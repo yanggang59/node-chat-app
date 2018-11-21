@@ -29,9 +29,16 @@ io.on('connection',(socket)=>{
 
 
 
-  socket.on('createMessage',(message)=>{
-    console.log('createMessage: ',message);
+  socket.on('createMessage',(message,callback) => {
+    console.log('createMessage:',message);
     io.emit('newMessage',generateMessage(message.from,message.text));
+    try{
+        callback('This is from the server');
+    }catch(e)
+    {
+      console.log('something wrong');
+    }
+
 
     // socket.broadcast.emit('newMessage',{
     //     form:message.from,
