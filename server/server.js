@@ -1,18 +1,20 @@
 const path = require('path');
-const publicPath =path.join(__dirname,'..\\public');
-console.log(__dirname + '\\..\\public');
-console.log(publicPath);
-
-
+const http = require('http');
 const express = require('express');
-const port = prosee.env.PORT || 3000;
+const socketIO = require('socket.io');
 
+
+
+const port = process.env.PORT || 3000;
+const publicPath =path.join(__dirname,'..\\public');
 var app=express();
 
+
+var server = http.createServer(app);
 
 app.use(express.static(publicPath));
 
 
-app.listen(port,()=>{
+server.listen(port,()=>{
   console.log(`server is listening on ${port}`);
 });
