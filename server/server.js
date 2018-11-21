@@ -17,6 +17,15 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 
 
+io.on('connection',(socket)=>{
+  console.log('New user connected');
+
+  socket.on('disconnect',()=>{
+    console.log('User was diconnected');
+  });
+
+});
+
 server.listen(port,()=>{
   console.log(`server is listening on ${port}`);
 });
