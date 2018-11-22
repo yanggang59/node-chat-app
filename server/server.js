@@ -23,11 +23,8 @@ io.on('connection',(socket)=>{
   //socket.emit from admin text welcome to the chat app
   socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
 
-
   //socket.broadcast.emit from admin text:New user joined
-  //socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
-
-
+  socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'));
 
   socket.on('createMessage',(message,callback) => {
     console.log('createMessage:',message);
@@ -38,17 +35,18 @@ io.on('connection',(socket)=>{
     {
       console.log('something wrong');
     }
-
-    socket.on('createLocationMessage',(coords)=>{
-      io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
-    })
   });
+
+  socket.on('createLocationMessage',(coords)=>{
+    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude));
+  })
+
 
   socket.on('disconnect',()=>{
     console.log('User was diconnected');
   });
 
-  });
+});
 
 
 server.listen(port,()=>{
